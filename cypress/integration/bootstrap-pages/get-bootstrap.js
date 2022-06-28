@@ -15,12 +15,11 @@ describe("Get Bootstrap Testing", function () {
     cy.url().should("include", "/browsers-devices/");
   });
 
-    it('Search Browsers and devices', function(){
-        cy.get('.DocSearch')
-        .type('Browsers and devices')
-        cy.get('#docsearch-item-0').click()
-        cy.url().should('include', '/browsers-devices/')
-    })
+  it("Search Browsers and devices", function () {
+    cy.get(".DocSearch").type("Browsers and devices");
+    cy.get("#docsearch-item-0").click();
+    cy.url().should("include", "/browsers-devices/");
+  });
 
   it("Acessing the Examples", function () {
     cy.contains("Examples").click();
@@ -45,7 +44,7 @@ describe("Get Bootstrap Testing", function () {
     cy.scrollTo("bottom");
     cy.scrollTo("top");
   });
-    
+
   it("Navigating back to home", function () {
     cy.get(".my-1").click();
     cy.url().should("eq", "https://getbootstrap.com/");
@@ -58,7 +57,7 @@ describe("Get Bootstrap Testing", function () {
       .each(($el, index, $list) => {
         if ($el.text().includes("All versions")) {
           cy.get($el).click();
-            }
+        }
       });
   });
 });

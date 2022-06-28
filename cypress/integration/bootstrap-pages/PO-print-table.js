@@ -1,8 +1,8 @@
-import { Table } from "./support/PO-show-table-content";
+import { Table } from "../../support/PO-show-table-content"
 
-const table = new Table();
 
 describe("Common Action PoC", function () {
+  const table = new Table();
   before("Accessing the webpage", function () {
     cy.visit("https://getbootstrap.com/docs/5.2/layout/breakpoints/");
   });
