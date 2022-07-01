@@ -1,7 +1,6 @@
 export class TableUtils {
   iterateRowsContent(table_info) {
     const table = cy.get(table_info);
-
     return table.find("tr").each(($row) => {
       cy.log($row.text());
     });
@@ -9,7 +8,6 @@ export class TableUtils {
 
   iterateColumnsContent(table_info) {
     const table = cy.get(table_info);
-
     return table.find("td").each(($row) => {
       cy.log($row.text());
     });
@@ -31,7 +29,6 @@ export class TableUtils {
 
   getRowContentBySpecificColumn(table_info, data, columnNumber) {
     const table = cy.get(table_info);
-
     return table.find("tr").each(($value, $index) => {
       if ($value.text().includes(data)) {
         this.getCellContentByDirectPosition(table_info, $index, columnNumber);

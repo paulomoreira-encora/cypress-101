@@ -1,7 +1,8 @@
 import { TableUtils } from "../../support/table-Utils/table-utils-commonActions";
 
+const tableUtils = new TableUtils();
+
 describe("Get table element by direct position", () => {
-  const tableUtils = new TableUtils();
   const tableLocator = "#AuthorsTable > .table-responsive";
 
   beforeEach("Acessing the table page", () => {

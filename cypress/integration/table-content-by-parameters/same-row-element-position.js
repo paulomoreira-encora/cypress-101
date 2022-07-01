@@ -1,7 +1,8 @@
 import { TableUtils } from "../../support/table-Utils/table-utils-commonActions";
 
+const tableUtils = new TableUtils();
+
 describe("Getting same row element position", () => {
-  const tableUtils = new TableUtils();
   const tableLocator = "#AuthorsTable > .table-responsive";
 
   beforeEach("Acessing the table page", () => {
