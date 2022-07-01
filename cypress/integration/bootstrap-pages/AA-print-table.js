@@ -1,9 +1,10 @@
 import {
   showColumnsContent,
   showRowsContent,
-} from "../../support/show-table-content-common-Action";
+} from "../../support/table-Utils/table-utils-commonActions";
 
 describe('Printing a table content', () => {
+  const tableLocator = ".table-responsive"
   before("Accessing Get Bootstrap", () => {
     cy.visit("https://getbootstrap.com/");
   });
@@ -14,7 +15,7 @@ describe('Printing a table content', () => {
         "https://getbootstrap.com/docs/5.2/layout/breakpoints/"
       );
     });
-    showRowsContent(".table-responsive");
-    showColumnsContent(".table-responsive");
+    showRowsContent(tableLocator);
+    showColumnsContent(tableLocator);
   });
 })

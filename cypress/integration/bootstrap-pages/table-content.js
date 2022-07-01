@@ -1,6 +1,5 @@
-const table = ".table-options";
-
 describe("Table content", function () {
+  const tableLocator = ".table-options";
   before("Acessing Options documentation", function () {
     cy.visit("https://getbootstrap.com/docs/5.2/customize/options/");
   });
@@ -21,8 +20,9 @@ describe("Table content", function () {
       .get("td:nth-child(3)")
       .each(($el) => cy.log($el.text()));
   });
+  
   it("Printing Option table per row", function () {
-    cy.get(table)
+    cy.get(tableLocator)
       .get("tr")
       .each(($el) => {
         cy.log($el.text());
