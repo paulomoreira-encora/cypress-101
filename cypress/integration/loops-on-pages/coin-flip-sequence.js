@@ -8,6 +8,6 @@ describe('Coin Flip Sequence', () => {
     })
 
     it('Seeking for a coin flip sequence', () => {
-        loopsUtils.coinFlip(10, 2, 'Brazilian 1 Real')
+        loopsUtils.coinFlip(5, 2, 'Brazilian 1 Real')
     })
 })
