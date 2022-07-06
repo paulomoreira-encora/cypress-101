@@ -14,20 +14,23 @@ export class LoopsUtils {
           )
         ) {
           loop_limit--;
-          sequenceCount++
+          cy.log(`Counts remaining: ${loop_limit}`)
+          sequenceCount++;
         } else {
           cy.contains("Again!").click();
           loop_limit--;
+          cy.log(`Counts remaining: ${loop_limit}`)
           this.sequenceFinder(intergerLocator, loop_limit);
         }
+        
       } else {
-        cy.get("body").then(()=>{
-          if(sequenceCount > 0){
-            cy.log("At least one sequence was shown. Test passed successfully!")
+        cy.get("body").then(() => {
+          if (sequenceCount > 0) {
+            expect(true).to.eq(true)
           } else {
-            throw new Error("No sequence was shown")
+            throw new Error("No sequence was shown");
           }
-        })
+        });
       }
     });
   }
@@ -52,48 +55,39 @@ export class LoopsUtils {
     }
   }
 
-  coinCheck(loop_limit) {
+  coinCheck(loop_limit, coins_num, coin_face) {
     var loop_limit = loop_limit;
-    cy.get(":nth-child(9) > :nth-child(1)")
-      .get("img")
-      .then(($first) => {
-        var coins_check = true;
-        var coins_count = 0;
+    cy.get("body").then(() => {
+      if (loop_limit > 0) {
+        var coins_count = coins_num;
         cy.get(":nth-child(9)")
           .get("img")
           .each(($value) => {
-            if ($value.attr("title") !== $first.attr("title")) {
-              coins_check = false;
+            if ($value.attr("title") === coin_face) {
+              coins_count--;
             }
           });
 
         cy.get("body").then(() => {
-          if (coins_check) {
-            cy.log(`All coin faces are ${$first.attr("title")}`);
-            coins_count++;
+          if (coins_count === 0) {
+            expect(coin_face).to.eq(coin_face);
+          } else {
+            cy.log(`There's ${coins_count} ${coin_face} coin left`);
+            loop_limit--;
+            cy.contains("Flip Again").click();
+            this.coinCheck(loop_limit, coins_num, coin_face);
           }
         });
-
-        loop_limit--;
-        cy.get("body").then(() => {
-          if (loop_limit > 0) {
-            cy.contains("Flip Again").click();
-            this.coinCheck(loop_limit);
-          } else {
-            if (coins_count === 0) {
-              throw new Error(`There is at least one coin different`)
-            }
-          }
-        })
-      });
+      }
+    });
   }
 
-  coinFlip(loop_limit, coins_num, currency) {
+  coinFlip(loop_limit, coins_num, currency, coin_face) {
     cy.get('[name="num"]').select(`${coins_num}`);
     cy.get('[name="cur"]').select(`${currency}`);
     cy.contains("Flip Coin(s)").click();
 
-    this.coinCheck(loop_limit);
+    this.coinCheck(loop_limit, coins_num, coin_face);
   }
 
   rollDiceCheck(countRolls, pickedNumber, countShow) {
@@ -107,22 +101,27 @@ export class LoopsUtils {
         cy.log($value.attr("alt"));
         auxCountShow--;
       }
-
-      countRolls--;
-      if (countRolls > 0) {
-        this.rollDiceCheck(countRolls, pickedNumber, auxCountShow);
+      if (auxCountShow == 0) {
+        expect(true).to.eq(true)
+        cy.log(
+          `The number ${pickedNumber} was shown how much was requested`
+        );
       } else {
-        cy.get("body").then(() => {
-          if (auxCountShow <= 0) {
-            cy.log(
-              `The number ${pickedNumber} was shown how much was requested`
-            );
-          } else {
-            throw new Error("The number was not shown enough, please try again!")
-            
-          }
-        });
+        countRolls--;
+        cy.log(`Counts remaining: ${countRolls}`)
+        if (countRolls > 0) {
+          this.rollDiceCheck(countRolls, pickedNumber, auxCountShow);
+        } else {
+          cy.get("body").then(() => {
+             if(auxCountShow !== 0) {
+              throw new Error(
+                "The number was not shown enough, please try again!"
+              );
+            }
+          });
+        }
       }
+      
     });
   }
 
