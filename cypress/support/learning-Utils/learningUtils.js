@@ -10,4 +10,12 @@ export class LearningUTils{
     checkElementContainVisibility(elementLocator, elementContain){
         return cy.get(elementLocator).contains(elementContain).should('be.visible')
     }
+
+    getElementContain(elementLocator, elementContain) {
+        return cy.get(elementLocator).contains(elementContain)
+    }
+
+    urlShouldIncludes(content){
+        return cy.url().should('includes', content)
+    }
 }
