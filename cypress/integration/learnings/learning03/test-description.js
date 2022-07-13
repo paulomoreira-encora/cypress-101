@@ -1,6 +1,6 @@
-import { LearningUTils } from "../../../support/learning-Utils/learningUtils";
+import { LearningUtils } from "../../../support/learning-Utils/learningUtils";
 
-const learningUtils = new LearningUTils();
+const learningUtils = new LearningUtils();
 
 describe('Check the filter of public expenditure budget on "gov.br"', () => {
 
