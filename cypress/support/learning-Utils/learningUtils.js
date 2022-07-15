@@ -1,4 +1,4 @@
-export class LearningUTils{
+export class LearningUtils{
     greaterThanZero(value){
         if (value < 0){
             return false
