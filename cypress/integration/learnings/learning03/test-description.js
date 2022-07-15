@@ -1,4 +1,4 @@
-import { LearningUtils } from "../../../support/learning-Utils/learningUtils";
+import { LearningUtils } from "../../../support/learning-utils/learning-utils";
 
 const learningUtils = new LearningUtils();
 
