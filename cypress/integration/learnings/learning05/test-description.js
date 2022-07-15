@@ -9,6 +9,6 @@ describe('Check the exclusive news on valor.globo.com', () => {
      })
 
      it('Checking if the exclusive and non-exclusive news are working properly', () => {
-        cy.log('test')
+        cy.get('body')
      })
 })
