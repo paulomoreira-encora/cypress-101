@@ -1,105 +1,96 @@
-import { LearningUtils } from "./learning-utils"
+import { LearningUtils } from "./learning-utils";
 
-const learningUtils = new LearningUtils()
+const learningUtils = new LearningUtils();
 
 export class Learning01Utils {
+  openHardwareMenu() {
+    const drawerMenuLocator = '[data-testid="drawerButton"]';
+    const iconCategoriesLocator = ".IconCategories";
+    const itemCategoryLocator = ".itemCategoriaMenu";
 
-    acceptCookies(){
-        return cy.get('#onetrust-accept-btn-handler').click()
-    }
+    cy.get(drawerMenuLocator).click();
+    cy.get(iconCategoriesLocator).should("be.visible").click();
 
-    openHardwareMenu(){
-        const drawerMenuLocator = '[data-testid="drawerButton"]'
-        const iconCategoriesLocator = '.IconCategories'
-        const itemCategoryLocator = '.itemCategoriaMenu'
+    return learningUtils
+      .checkElementContainVisibility(itemCategoryLocator, "Hardware")
+      .click();
+  }
 
-        cy.get(drawerMenuLocator).click()
-        cy.get(iconCategoriesLocator).should('be.visible').click()
+  searchCategory(...args) {
+    //This function receives n category name arguments.
+    //Ex. If I want to navigate to AMD Processors, just need to call Learning01Utils.searchCategory('Processadores', 'Processador AMD').
+    args.forEach(($category) => {
+      cy.contains($category).click();
+      cy.wait(500); //Wait 0.5 sec to the element
+    });
+  }
 
-        return learningUtils.checkElementContainVisibility(itemCategoryLocator, 'Hardware').click()
-    }
+  sortBy(sort) {
+    const sortByListLocator = ".kPOYhe";
 
-    searchCategory(...args){
-        //This function receives n category name arguments.
-        //Ex. If I want to navigate to AMD Processors, just need to call Learning01Utils.searchCategory('Processadores', 'Processador AMD').
-        args.forEach(($category) => {
-            cy.contains($category).click()
-            cy.wait(500)
-        })
-    }
+    cy.get(sortByListLocator).select(sort);
+  }
 
-    sortBy(sort){
-        const sortByListLocator = '.kPOYhe'
+  selectTheNProduct(n) {
+    const productCardLocator = ".imageCard";
 
-        cy.get(sortByListLocator).select(sort)
-    }
+    cy.get(`${productCardLocator}`).each(($value, index) => {
+      var title = $value.attr("title");
+      if (index === n) {
+        cy.contains(title).should("be.visible").click();
+      }
+    });
+  }
 
-    selectTheNProduct(n){
-        const productListLocator = '.dQRmAR'
-        const productCardLocator = '.imageCard'
+  addToCart() {
+    return cy.contains("COMPRAR").click();
+  }
 
-        cy.get(`${productCardLocator}`).each(($value, index) => {
-            var title = $value.attr('title')
-            if (index === n){
-                
-                cy.contains(title).should('be.visible').click()
-            }
-        })
-    }
+  keepBuying() {
+    return cy.contains("CONTINUAR COMPRANDO").click();
+  }
 
-    addToCart(){
-        return cy.contains('COMPRAR').click()
-    }
+  ramMemorySpecifications(frequency, memory, compatibility) {
+    const filterOptionLocator = ".filterOption";
 
-    keepBuying(){
-        return cy.contains('CONTINUAR COMPRANDO').click()
-    }
+    cy.get(".filterExpand").click({ multiple: true });
+    learningUtils.getElementContain(filterOptionLocator, frequency).click();
+    learningUtils.getElementContain(filterOptionLocator, memory).click();
+    learningUtils.getElementContain(filterOptionLocator, compatibility).click();
+  }
 
-    ramMemorySpecifications(frequency, memory, compatibility){
-        const filterOptionLocator = '.filterOption'
+  processorSpecifications(generation, line) {
+    const filterOptionLocator = ".filterOption";
+    const categoryListLocator = "#blocoCategoriasListagem";
 
-        cy.get('.filterExpand').click({multiple: true})
-        learningUtils.getElementContain(filterOptionLocator, frequency).click()
-        learningUtils.getElementContain(filterOptionLocator, memory).click()
-        learningUtils.getElementContain(filterOptionLocator, compatibility).click()
-    }
+    cy.get(".filterExpand").click({ multiple: true });
+    learningUtils.getElementContain(filterOptionLocator, generation).click();
+    learningUtils.getElementContain(categoryListLocator, line).click();
+  }
 
-    processorSpecifications(generation, line) {
-        const filterOptionLocator = '.filterOption'
-        const categoryListLocator = '#blocoCategoriasListagem'
-        cy.get('.filterExpand').click({multiple: true})
+  ssdSpecifications(speed) {
+    const filterOptionLocator = ".filterOption";
 
-        learningUtils.getElementContain(filterOptionLocator, generation).click()
-        learningUtils.getElementContain(categoryListLocator, line).click()
-    }
+    cy.get(".filterExpand").click({ multiple: true });
+    learningUtils.getElementContain(filterOptionLocator, speed).click();
+  }
 
-    ssdSpecifications(speed){
-        const filterOptionLocator = '.filterOption'
+  moboSpecifications(socket, chipset, size) {
+    const filterOptionLocator = ".filterOption";
 
-        cy.get('.filterExpand').click({multiple: true})
-        learningUtils.getElementContain(filterOptionLocator, speed).click()
-    }
+    cy.get(".filterExpand").click({ multiple: true });
 
-    moboSpecifications(socket, chipset, size){
-        const filterOptionLocator = '.filterOption'
+    learningUtils.getElementContain(filterOptionLocator, socket).click();
+    learningUtils.getElementContain(filterOptionLocator, chipset).click();
+    learningUtils.getElementContain(filterOptionLocator, size).click();
+  }
 
-        cy.get('.filterExpand').click({multiple: true})
+  openCart() {
+    const iconCartLocator = ".IconHeaderCart";
+    return cy.get(iconCartLocator).click();
+  }
 
-        learningUtils.getElementContain(filterOptionLocator, socket).click()
-        learningUtils.getElementContain(filterOptionLocator, chipset).click()
-        learningUtils.getElementContain(filterOptionLocator, size).click()
-    }
-
-    openCart(){
-        const iconCartLocator = '.IconHeaderCart'
-        return cy.get(iconCartLocator).click()
-    }
-
-    checkIfCartIsEmpty(){
-        cy.contains('O seu carrinho está vazio.').should('not.exist')
-    }
-
-    checkCartItems(){
-
-    }
+  checkIfCartIsEmpty() {
+    return cy.contains("O seu carrinho está vazio.").should("not.exist");
+  }
 }
