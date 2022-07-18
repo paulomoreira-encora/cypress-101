@@ -52,13 +52,13 @@ export class Learning04Utils {
     cy.get("#phone_mobile").type(memberSignUpInfoObject["mobilePhone"]);
     cy.get("#alias").type(memberSignUpInfoObject["referenceAddress"]);
 
-    return cy.get('#submitAccount').click()
+    return cy.get("#submitAccount").click();
   }
 
-  fillSignInFields(memberSignUpInfoObject){
-    cy.get('#email').type(memberSignUpInfoObject['email'])
-    cy.get('#passwd').type(memberSignUpInfoObject['password123'])
+  fillSignInFields(memberSignUpInfoObject) {
+    cy.get("#email").type(memberSignUpInfoObject["email"]);
+    cy.get("#passwd").type(memberSignUpInfoObject["password"]);
 
-    return cy.get('#SubmitLogin').click()
+    return cy.get("#SubmitLogin").click();
   }
 }
