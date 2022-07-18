@@ -1,10 +1,14 @@
 import { LearningUtils } from "../../../support/learning-utils/learning-utils";
 import { Learning04Utils } from "../../../support/learning-utils/learning04-utils";
 import { memberSignUpInfoObject } from "../../../objects/learning04/member-sign-up-info-object";
+import { faker } from '@faker-js/faker';
 
 const learningUtils = new LearningUtils();
 const learning04Utils = new Learning04Utils();
 const signUpInfo = memberSignUpInfoObject;
+const randomEmail = faker.internet.email();
+signUpInfo['email'] = randomEmail
+
 
 describe('Create a new account and verify the login', () => {
 
@@ -16,7 +20,7 @@ describe('Create a new account and verify the login', () => {
         learningUtils.getElementContain('.login', 'Sign in').click()
         learningUtils.urlShouldIncludes('controller=authentication')
 
-        cy.get('#email_create').type('teste94@gmail.com')
+        cy.get('#email_create').type(signUpInfo['email'])
         learningUtils.getElementContain('.btn.btn-default', 'Create an account').click()
         learningUtils.urlShouldIncludes('account-creation')
 
