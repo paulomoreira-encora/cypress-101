@@ -6,11 +6,11 @@ import { faker } from "@faker-js/faker";
 const learningUtils = new LearningUtils();
 const learning04Utils = new Learning04Utils();
 const signUpInfo = memberSignUpInfoObject;
-const randomEmail = faker.internet.email();
-signUpInfo["email"] = randomEmail;
 
 describe("Create a new account and verify the login", () => {
   beforeEach("Accessing the login page", () => {
+    signUpInfo["email"] = faker.internet.email();
+
     cy.visit("http://automationpractice.com/index.php");
   });
 
