@@ -1,15 +1,15 @@
-export var memberSignUpInfoObject = {
+var memberSignUpInfoObject = {
     gender: 'Mr',
-    firstName: 'DefaultFisrtName',
-    lastName: 'DefaultLastName',
-    email: 'defaultemail@default.com',
+    firstName: 'John',
+    lastName: 'Snow',
+    email: 'teste943@gmail.com',
     password: 'password123',
     birthDate: '12/08/2001',
-    addressFirstName: 'DefaultAddressFirstName',
-    addressLastName: 'DefaultAddressLastName',
-    company: 'DefaultCompany',
-    address: 'DefaultAddress',
-    addressLine2: 'DefaultAddressLine2',
+    addressFirstName: 'John',
+    addressLastName: 'Snow',
+    company: 'Company',
+    address: 'Address1',
+    addressLine2: 'Address2',
     city: 'Street 1',
     state: 'Alaska',
     postalCode: '12345',
@@ -19,3 +19,5 @@ export var memberSignUpInfoObject = {
     mobilePhone: '8197123212',
     referenceAddress: 'My Address'
 }
+
+export default {memberSignUpInfoObject}
